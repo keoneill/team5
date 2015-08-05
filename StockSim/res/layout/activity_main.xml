@@ -1,0 +1,145 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:orientation="horizontal"
+    android:paddingBottom="20dip"
+    android:paddingTop="10dip" >
+
+    <!-- Row 1 Display Welcome -->
+
+    <TextView
+        android:id="@+id/displayWelcomeTextView"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="20dip"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingBottom="20dip" 
+        />
+
+    
+    <!-- ROW 2: getTickerEditText | getQuoteButton -->
+
+    <EditText
+        android:id="@+id/getTickerEditText"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="20dip"
+        android:hint="@string/entersymbol"
+        android:inputType="text" >
+    </EditText>
+
+    <Button
+        android:id="@+id/getQuoteButton"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="@string/getquote" />
+
+    <!-- ROW 3: displayTickerTextView | displayQuoteTextView -->
+    	<!-- displays the ticker -->
+
+    <TextView
+        android:id="@+id/displayTickerTextView"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dip"
+        android:paddingTop ="20dp"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+   		 <!-- displays the current price -->
+
+    <TextView
+        android:id="@+id/displayQuoteTextView"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:paddingTop ="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <!-- ROW 4: display Company name of ticker that is being searched -->
+    	<!-- displays the company name  -->
+
+    <TextView
+        android:id="@+id/displayCompanyTextView"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dip"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <!-- ROW 5: Text for Dow Game -->
+
+    <TextView
+        android:id="@+id/dowGameTextView"
+        android:paddingTop ="20dp"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dip"
+        android:text="@string/dowGameString"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ADD8E6" />
+
+
+    <!-- ROW 6: dowSelectionTextView | dowGameSpinner -->
+
+    <Spinner
+        android:id="@+id/dowGameSpinner"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop = "20dip"
+         />
+
+    
+    <!-- ROW 7:  Confirmation Button | View Stats Button-->
+
+    <Button
+        android:id="@+id/confirmPlayButton"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="20dip"
+        android:paddingTop="20dip"
+        android:text="Confirm and Play" />
+
+    <Button
+        android:id="@+id/viewStatsButton"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginRight="20dip"
+        android:paddingTop="20dip"
+        android:onClick="viewStats"
+        android:text="View Stats" />
+
+    <!-- ROW 8: Confirmation Text View -->
+
+    <TextView
+        android:id="@+id/displayConfirmationTextView"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dip"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <Space
+        android:layout_column="0"
+        android:layout_gravity="fill_vertical"
+        android:layout_row="9" />
+
+</GridLayout>
