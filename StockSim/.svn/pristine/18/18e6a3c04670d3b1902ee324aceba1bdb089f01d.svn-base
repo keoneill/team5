@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">StockSim</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="getquote">Get Quote</string>
+    <string name="playdowgame">Play Dow Game</string>
+    <string name="manageportfolio">Manage Portfolio</string>
+    <string name="entersymbol">Enter a ticker symbol</string>
+    <string name="action_login">Login</string>
+    <string name="dowGameString">Play the Dow Game: Select the stock that you think will be the largest percentage gainer during the next trading session.</string>
+
+</resources>

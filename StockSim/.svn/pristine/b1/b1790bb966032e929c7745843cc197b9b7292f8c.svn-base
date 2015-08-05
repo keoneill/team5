@@ -1,0 +1,209 @@
+package com.team5.stocksim;
+
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.app.Activity; // base class for activities
+import android.content.Context;
+import android.os.Bundle; // for saving state information
+import android.text.Editable; // for EditText event handling
+import android.text.TextWatcher; // EditText listener
+import android.widget.EditText; // for input
+import android.widget.TextView; // for displaying text
+import android.view.View; // used to connect button's in xml to activities in Java code (TO DO -refine explanation)
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask; // enables app to run task in the background
+import android.util.Log; // for exception reporting
+import android.widget.Toast; // used for displaying pop up messages
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.HttpURLConnection; // using this more specific Http import statement
+import java.net.URLConnection;
+
+
+public class MainActivity extends ActionBarActivity {
+
+	//private EditText getQuoteEditText; // Edit Text where user enters Ticker Symbol for Stock
+	private TextView displayTickerTextView; // shows Ticker symbol for stock next to Quote
+	private TextView displayQuoteTextView; // shows Price Quote for stock
+	private String tickerSymbol = "dis"; 	// intended to be the captured ticker symbol 
+										//	and then sent to displayTickerTextView
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		displayTickerTextView = (TextView) findViewById(R.id.displayTickerTextView);
+		EditText getTickerEditText = (EditText) findViewById(R.id.getTickerEditText);
+		getTickerEditText.addTextChangedListener(getTickerEditTextWatcher);
+		displayQuoteTextView = (TextView) findViewById(R.id.displayQuoteTextView);		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}	
+		
+
+// event-handling object that responds to getTickerEditText's events
+	private TextWatcher getTickerEditTextWatcher = new TextWatcher() 
+	{
+		// called when the user enters a number
+		@Override
+		public void onTextChanged(CharSequence s, int start, 
+				int before, int count) 
+		{         
+			displayTickerTextView.setText(s);
+		} // end method onTextChanged
+
+		@Override
+		public void afterTextChanged(Editable s) 
+		{
+		} // end method afterTextChanged
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) 
+		{
+		} // end method beforeTextChanged
+	}; // end getTickerEditTextWatcher
+	
+
+// getQuote function is called when getQuoteButton is pushed
+	public void getQuote(View v)
+	{
+		CharSequence ticker = displayTickerTextView.getText();
+		tickerSymbol = ticker.toString();
+		String urlStr = "https://www.google.com/finance?q=" + tickerSymbol; 
+		if (isNetworkAvailable())
+		{
+			new ReadStreamTask().execute(urlStr);
+		}
+		else
+		{
+			Toast.makeText(this,  "Network is not available", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	private boolean isNetworkAvailable()
+	{
+		boolean available = false;
+		
+		ConnectivityManager manager = (ConnectivityManager)
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+		if (networkInfo != null && networkInfo.isAvailable()){
+			available = true;
+		}
+		return available;
+	}
+	
+	private String readStream(String urlStr) throws IOException
+	{
+		String str = "";
+		InputStream inputStream = null;
+		BufferedReader reader = null;
+		URL url = new URL(urlStr);
+		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		
+		// TO DO -- add check to make sure URL is valid, if not display message
+		try 
+		{
+			inputStream = urlConnection.getInputStream();
+			reader = new BufferedReader(new InputStreamReader(inputStream));
+			
+			String line = "";
+
+			// while loop for parsing text
+	        while ((line = reader.readLine()) != null) 
+	        {
+	        	if (line.contains("<meta itemprop=\"price\""))
+	        	{
+	        		String price = reader.readLine().trim();
+	        		char quote = '\"';
+	        		for (int i = 0; i < price.length(); i++){
+	        			
+	        			if (price.charAt(i) == quote)
+	        			{
+	        				for (int j = 1; j < price.length()+i; j++)
+	        				{
+	        					if (price.charAt(i+j) == quote)
+	        					{
+	        						price = price.substring(i+1, i+j);
+	        						str += price;
+	        					}
+	        				}
+	        			}
+	        		}
+	        	}
+	        }
+	        if (str == "")
+	        {
+	        	str = "Invalid Ticker";
+	        }
+		}
+		catch (Exception e) 
+		{
+			Log.d("StockSim", e.toString());
+		}
+		finally 
+		{
+			inputStream.close();
+			reader.close();
+			urlConnection.disconnect();
+		}
+		return str;
+	}
+	
+	private class ReadStreamTask extends AsyncTask<String, Void, String> 
+	{
+		String str = "";
+		
+		@Override
+		protected String doInBackground(String... params) {
+			try {
+				str = readStream(params[0]);
+			}
+			catch (Exception e) {
+				Log.d("StockSim", e.toString());
+			}
+			return str;
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			// display price quote string in displayQuoteTextView
+			if (result != null)
+			{
+				displayQuoteTextView.setText(str);
+			}
+			else
+			{
+				displayQuoteTextView.setText("Can't get Quote");
+			}
+		}
+	}
+}
+
+

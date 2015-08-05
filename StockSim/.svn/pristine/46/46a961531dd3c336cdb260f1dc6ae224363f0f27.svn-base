@@ -1,0 +1,223 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/TableLayout1"
+	android:layout_width = "match_parent"
+	android:layout_height = "match_parent"
+	android:paddingBottom="6dip"
+	android:paddingTop="4dip">
+
+	<!--  Row 1a -->
+	<TableRow
+	   	android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="20dip">
+		<TextView
+			android:id = "@+id/displayWelcomeTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_span="2"
+		/>
+	</TableRow>
+	
+	<!-- ROW 1: getTickerEditText | getQuoteButton -->
+	<TableRow 
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="10dip">
+		
+		<EditText
+			android:id = "@+id/getTickerEditText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:hint = "@string/entersymbol"
+			android:inputType="text">
+		</EditText>
+		
+		<Button
+			android:id="@+id/getQuoteButton"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="20dip"
+			android:layout_weight ="1"
+			android:text="@string/getquote"/>
+
+	</TableRow>
+	
+	<!-- ROW 2a: displayTickerTextView | displayQuoteTextView -->
+	<!-- later add percent change from previous closing price -->
+	<TableRow
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dip">
+		
+		<!-- displays the ticker -->
+		<TextView
+			android:id="@+id/displayTickerTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textAllCaps="true"
+			android:textStyle="bold"/>
+		
+		<!-- displays the current price -->
+		<TextView
+			android:id="@+id/displayQuoteTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="20dip"
+			android:layout_weight ="1"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textStyle="bold"/>
+	</TableRow>
+	
+	<!--  ROW 2b: display Company name of ticker that is being searched -->
+	<TableRow
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dip">
+					<!-- displays the ticker -->
+		<TextView
+			android:id="@+id/displayCompanyTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_span="2"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textAllCaps="true"
+			android:textStyle="bold"/>
+	</TableRow>
+	
+	
+	<!--  ROW 3: Text for Dow Game -->
+	<TableRow
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="10dip">
+		
+	    <TextView
+	        android:id="@+id/dowGameTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_span="2"
+	        android:text="@string/dowGameString"
+	        android:textAppearance="?android:attr/textAppearanceMedium" 
+	     />
+
+	</TableRow>
+	
+	<!-- ROW 4: dowSelectionTextView | dowGameSpinner -->
+	<TableRow
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dip">
+
+		<Spinner
+		    android:id="@+id/dowGameSpinner"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content" 
+        	android:layout_gravity="center_horizontal"
+	        android:layout_span="2"
+			/>
+		
+	</TableRow>
+	
+	<!-- ROW 5: currentSelectionTextView | displayDowGameTickerTextView -->
+	<TableRow
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dip">
+		
+		<!-- displays the Dow Game Selection -->
+		<TextView
+			android:id="@+id/currentSelectionTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:text="Your Selection is: "
+			android:textAppearance="?android:attr/textAppearanceMedium"
+		/>
+		
+		<!-- displays the ticker -->
+		<TextView
+			android:id="@+id/displaySelectionTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="20dip"
+			android:layout_weight ="1"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textAllCaps="true"
+			android:textStyle="bold"/>
+	</TableRow>	
+	
+	
+	<!-- ROW 6 Confirmation Button -->
+	<TableRow
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="10dip">
+		
+		<Button 
+		    android:id="@+id/confirmPlayButton"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="20dip"
+			android:text="Confirm and Play"
+		/>
+		
+		<Button
+		   	android:id="@+id/viewStatsButton"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="20dip"
+			android:onClick="viewStats"
+			android:text="View Stats"
+		/>
+	</TableRow>
+
+
+	<!-- ROW 7 Confirmation Text View-->
+	<TableRow
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="10dip">
+	    
+	    <TextView
+			android:id="@+id/displayConfirmationTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dip"
+			android:layout_gravity="center_horizontal"
+			android:layout_span="2"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			/>
+	</TableRow>
+<!-- ROW 8: portfolioButton
+	<TableRow
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="10dip">
+		
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_span="2"
+			android:text="Manage Portfolio">
+		</Button>
+	</TableRow>
+ -->
+</TableLayout>

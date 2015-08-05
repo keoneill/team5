@@ -1,0 +1,93 @@
+package com.team5.stocksim;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+public class Login extends Activity
+{
+	private TextView confirmLoginTextView;
+	private TextView confirmRegTextView;
+	private String userName;
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+		confirmLoginTextView = (TextView) findViewById(R.id.confirmLoginTextView);
+		confirmRegTextView = (TextView) findViewById(R.id.confirmRegTextView);
+		final Button loginButton = (Button) findViewById(R.id.loginButton);
+		loginButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				login();
+			}
+		});
+	}
+/*	
+	private class login extends AsyncTask<Void, Void, Void> 
+	{
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+			userName = usernameEditText.getText().toString();
+			EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+			String password = passwordEditText.getText().toString();
+			
+			// TO DO add check to server for username
+			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+			if (result != null)
+			{
+				SharedPreferences prefs = getSharedPreferences("MyApp", MODE_PRIVATE);
+				prefs.edit().putString("username", userName).commit();
+				confirmLoginTextView.setText("Login started for " + prefs.getString("username",""));
+				finish();
+				
+			}
+			else
+			{
+				confirmLoginTextView.setText("Can't Login");
+			}
+		}
+
+	}	
+*/	
+	public void login()
+	{
+		EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+		userName = usernameEditText.getText().toString();
+		EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+		String password = passwordEditText.getText().toString();
+
+		SharedPreferences prefs = getSharedPreferences("MyApp", MODE_PRIVATE);
+		prefs.edit().putString("username", userName).commit();
+		confirmLoginTextView.setText("Login started for " + prefs.getString("username",""));
+		finish();
+		
+	}
+//*/
+	public void register(View v)
+	{
+		//EditText newUsernameEditText = (EditText) findViewById(R.id.newUsernameEditText);
+		//String newUser = newUsernameEditText.getText().toString();	
+		//EditText newPasswordEditText = (EditText) findViewById(R.id.newPasswordEditText);
+		//String newPass = newPasswordEditText.getText().toString();
+		
+		confirmRegTextView.setText("Your new username is"); //+ newUser);
+
+	}
+
+}
